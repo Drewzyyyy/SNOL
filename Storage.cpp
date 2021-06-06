@@ -91,4 +91,9 @@ void Storage::ASSIGN(string command) {
 		If possible create other methods for the INFIX->POSTFIX and Calculation
 		variables[var] = value of expr; // To store the value to expr to the hash table
 	*/
+
+	//test code for the infix to postfix conversion
+	stack <char> s;
+	string postfix = infixToPostfix(s, expr);
+	cout << "Postfix Expression: " << postfix << endl;
 }
