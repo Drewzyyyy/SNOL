@@ -18,16 +18,17 @@ int precedence(char value) {
 
 bool checkError(string postfix){
     int prev, curr;
-    string tmp, tmp1;    int j;
+    string tmp, tmp1;
+    int j;
     
     // 1 if int; 0 if float
     
-    for (int i = 0; i < postfix.length(); i++) {
-        if (isdigit(postfix[i]) || postfix[i]=='.') {
+    for (int i = 0; i < postfix.length(); i++) {          // Loop checks each character to see if all the numbers have the same data type
+        if (isdigit(postfix[i]) || postfix[i]=='.') {     // Stores character into a temporary string if num or period
             tmp+= postfix[i];
             continue;
         } else {
-            if (postfix[i] == ' ' && !tmp.empty()) {
+            if (postfix[i] == ' ' && !tmp.empty()) {      // If char is space and tmp is not empty, it will go in the if statement
                 if (tmp.find(".") >= tmp.length()) { //num is int
                     prev= 1;
                 } else {
@@ -35,24 +36,24 @@ bool checkError(string postfix){
                 }
                 
                 if ((i+1) < postfix.length()) {
-                    for (j = i+1; j < postfix.length(); j++){
-                        if (isdigit(postfix[j]) || postfix[j]=='.') {
+                    for (j = i+1; j < postfix.length(); j++){   // Loop to find the next number to compare with tmp
+                        if (isdigit(postfix[j]) || postfix[j]=='.') {   // Stores character into a temporary string if num or period
                             tmp1+= postfix[j];
                             continue;
                         } else {
-                            if (postfix[j] == ' ') {
+                            if (postfix[j] == ' ') {    // If char is space, it will compare the previous number and the next number
                                 if (tmp1.find(".") >= tmp1.length()) { // num is int
                                     curr = 1;
                                 } else {                                // num is float
                                     curr = 0;
                                 }
                                 
-                                if (prev != curr) {
-                                    return false;
+                                if (prev != curr) {     // If prev != curr, then the two data types do not match
+                                    return false;       // Returns false
                                 }
                                 
-                                tmp = tmp1;
-                                tmp1.clear();
+                                tmp = tmp1;             // Gets the current number and stores it into the temporary string storage for the previous number
+                                tmp1.clear();           // Clears tmp1
                                 break;
                             }else continue;
                         }
