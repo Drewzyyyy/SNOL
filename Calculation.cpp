@@ -17,11 +17,9 @@ int precedence(char value) {
 }
 
 bool checkError(string postfix){
-    bool intNum, floatNum;
     int prev, curr;
-    string tmp, tmp1;
-    unsigned test = postfix.length();
-    int j;
+    string tmp, tmp1;    int j;
+    
     // 1 if int; 0 if float
     
     for (int i = 0; i < postfix.length(); i++) {
@@ -53,12 +51,13 @@ bool checkError(string postfix){
                                     return false;
                                 }
                                 
-                                tmp.clear();
+                                tmp = tmp1;
                                 tmp1.clear();
                                 break;
                             }else continue;
                         }
                     }
+                    i = j;
                 }
             }else continue;
         }
