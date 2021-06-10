@@ -11,7 +11,6 @@ using namespace std;
 
 /*
 	Performs variable storage, and manipulation
-
 	Rundown:
 	Line - Name			: Description
 	20	 - doesVarExist : Checks if the is already assigned
@@ -89,7 +88,6 @@ void Storage::ASSIGN(string command) {
 				All spaces were removed
 				Do operations
 				Remember: MODULUS NEEDS TO BE ONLY FOR INT
-
 		If possible create other methods for the INFIX->POSTFIX and Calculation
 		variables[var] = value of expr; // To store the value to expr to the hash table
 	*/
@@ -97,5 +95,29 @@ void Storage::ASSIGN(string command) {
 	//test code for the infix to postfix conversion
 	stack <char> s;
 	string postfix = infixToPostfix(s, expr);
-	cout << "Postfix Expression: " << postfix << endl;
+	
+	//checks if all numbers have the same data type
+	if(checkError(postfix)==false){
+		cout<<"Error!"<<endl;
+		return; 
+	}
+	else{
+		cout << "Postfix Expression: " << postfix << endl;
+
+		if(checkType(postfix)==true) {
+			stack <float> i;	
+			string ans = evaluateIntPostfix(i, postfix);
+			if(ans=="ERROR"){
+				cout<<"Error!"<<endl;
+				return;
+			}
+			cout << "Answer: " << ans <<endl;
+		}
+		else{
+			stack <float> f;
+			string ans = evaluateFloatPostfix(f, postfix);
+			cout << "Answer: " << ans <<endl;
+		}
+	}
+	
 }
