@@ -28,5 +28,6 @@ class Storage
 		void BEG(string command);
 		void PRINT(string command);
 		void ASSIGN(string command);
+		bool VAR_CHECK(string command);
 };
 

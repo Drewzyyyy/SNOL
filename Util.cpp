@@ -1,6 +1,8 @@
 #include "Util.h"
+#include "Calculation.h"
 #include <iostream>
 #include <regex>
+#include <stack>
 
 using namespace std;
 
@@ -229,4 +231,35 @@ bool isDigit(string c) {	// Check if string is in digit syntax
 	regex digit("\\(*-?[0-9][0-9]*(\\.[0-9]+)?\\)*");	// [-]digit{digit}[.{digit}] -> in IBNF
 	if (regex_match(c, digit)) return true;
 	else return false;
+}
+
+void checkCalc(string expr) {
+	stack <char> s;
+	string postfix = infixToPostfix(s, expr);
+
+	//checks if all numbers have the same data type
+	if (checkError(postfix) == false) {
+		cout << "Error!" << endl;
+		return;
+	}
+	else {
+		cout << "Postfix Expression: " << postfix << endl;
+		if (checkType(postfix)) {
+			stack <float> i;
+			string ans = evaluateIntPostfix(i, postfix);
+			if (ans == "ERROR") {
+				cout << "Error!" << endl;
+				return;
+			}
+		}
+		else {
+			stack <float> f;
+			string ans = evaluateFloatPostfix(f, postfix);
+			if (ans == "ERROR") {
+				cout << "Error!" << endl;
+				return;
+			}
+		}
+		return;
+	}
 }

@@ -12,4 +12,4 @@ bool check_syntax(string command, int type);	// Check the syntax of the command 
 bool isOperator(char c);	// Check if character is a mathematical operator (excluding '=')
 bool isVar(string c);	// Check if string is in a variable name syntax
 bool isDigit(string c);	// Check if string is in digit syntax
-
+void checkCalc(string expr);

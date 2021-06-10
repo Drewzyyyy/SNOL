@@ -58,6 +58,7 @@ int main() {
 				if (check_syntax(command, type)) DO STUFF HERE;
 				*/
 				if (!check_syntax(command, type)) cout << "ERROR" << endl;
+				else if(store.VAR_CHECK(command)) checkCalc(command);
 				break;
 			case 5:
 				// Assignment

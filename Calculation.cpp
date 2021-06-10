@@ -68,34 +68,8 @@ bool checkError(string postfix){
 }
 
 bool checkType(string postfix){
-    int prev;
-    string tmp, tmp1;
-    
-    // 1 if int; 0 if float
-    
-    for (int i = 0; i < postfix.length(); i++) {          // Loop checks each character to see if all the numbers have the same data type
-        if (isdigit(postfix[i]) || postfix[i]=='.') {     // Stores character into a temporary string if num or period
-            tmp+= postfix[i];
-            continue;
-        } else {
-            if (postfix[i] == ' ' && !tmp.empty()) {      // If char is space and tmp is not empty, it will go in the if statement
-                if (tmp.find(".") >= tmp.length()) {
-                    prev= 1;  //num is int
-                } else {
-                    prev = 0; // num is float
-                }
-                break;
-            }else continue;
-        }
-    }
-    
-    
-    // Returns true if formula only has int/float
-    if (prev == 1) {
-        return true;  // Returns true if int
-    } else {
-        return false; // Returns false if float
-    }
+    return (postfix.find('.') >= postfix.length());
+    // Returns true if Integer, then false if float
 }
 
 
@@ -241,6 +215,9 @@ string evaluateFloatPostfix(stack <float> mystack, string postfix){
     		mystack.push(a);
             num.erase();
             continue;
+        }
+        else if (postfix[i] == '%') {
+            return "Error";
         }
         else {
         	float val1 = mystack.top();

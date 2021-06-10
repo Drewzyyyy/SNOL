@@ -44,7 +44,6 @@ void Storage::PRINT(string command) {
 
 void Storage::ASSIGN(string command) {
 	string temp, expr, var;
-	bool isFloat = false;
 	// Perform expression evaluation similar to in syntax checking, break down expression part by part
 	for (int i = 0; i < command.length(); i++) {
 		if (isOperator(command[i])) {	// Current operator is an operator
@@ -55,10 +54,7 @@ void Storage::ASSIGN(string command) {
 					return;
 				}
 			}
-			else {
-				if (command[i] == '.') isFloat = true;
-				expr += temp + command[i];	// Add digit and operator to the string
-			}
+			else expr += temp + command[i];
 			temp.erase();
 		}
 		else if (command[i] == ' ') continue;	// Ignore spaces
@@ -81,43 +77,53 @@ void Storage::ASSIGN(string command) {
 	temp.erase();
 	command.erase();
 	cout << "EXPR = " << expr << endl; // For checking only removable
-	//cout << "Expression: " << expr << endl;
-	/* Insert code here for solution to the expr
-		Guides: Access to the expression only: expr
-				Access to the variable name: var
-				All spaces were removed
-				Do operations
-				Remember: MODULUS NEEDS TO BE ONLY FOR INT
-		If possible create other methods for the INFIX->POSTFIX and Calculation
-		variables[var] = value of expr; // To store the value to expr to the hash table
-	*/
 
 	//test code for the infix to postfix conversion
 	stack <char> s;
 	string postfix = infixToPostfix(s, expr);
+	string ans = "";
 	
 	//checks if all numbers have the same data type
-	if(checkError(postfix)==false){
+	if(!checkError(postfix)){
 		cout<<"Error!"<<endl;
 		return; 
 	}
 	else{
 		cout << "Postfix Expression: " << postfix << endl;
 
-		if(checkType(postfix)==true) {
+		if(checkType(postfix)) {
 			stack <float> i;	
-			string ans = evaluateIntPostfix(i, postfix);
+			ans = evaluateIntPostfix(i, postfix);
 			if(ans=="ERROR"){
 				cout<<"Error!"<<endl;
 				return;
 			}
-			cout << "Answer: " << ans <<endl;
 		}
 		else{
 			stack <float> f;
-			string ans = evaluateFloatPostfix(f, postfix);
+			ans = evaluateFloatPostfix(f, postfix);
+			if (ans == "ERROR") {
+				cout << "Error!" << endl;
+				return;
+			}
 			cout << "Answer: " << ans <<endl;
 		}
+		variables[var] = ans;
 	}
 	
+}
+
+bool Storage::VAR_CHECK(string command) {
+	string var;
+	for (int i = 0; i < command.length(); i++) {
+		if (isOperator(command[i])) {
+			if(isVar(var) && !doesVarExist(var)){
+				cout << "ERROR!" << endl;
+				return false;
+			}
+			else var.erase();
+		}
+		var += command[i];
+	}
+	return true;
 }
