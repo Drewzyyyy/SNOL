@@ -32,7 +32,7 @@ void Storage::BEG(string command) {
 	cin.clear();
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	if (isDigit(store)) variables[temp] = store;
-	else cout << "ERROR" << endl; // DISPLAY APPROPRIATE ERROR COMMAND
+	else cout << "SNOL> Error! Value of [" << temp << "] can only store integer or float values." << endl;
 }
 
 void Storage::PRINT(string command) {
