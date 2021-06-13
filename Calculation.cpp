@@ -3,6 +3,7 @@
 #include <stack>
 #include <ctype.h>
 #include "Calculation.h"
+#include "Util.h"
 
 using namespace std;
 
@@ -96,12 +97,16 @@ string infixToPostfix(stack <char> stack, string infix) {
                 postfix += " ";												// this will add spaces after each append in the postfix string
                 stack.pop();
             }
-            if (stack.top() == '(') {											//check if it encounters an open parentheses then pop
+            if (stack.top() == '(') {										//check if it encounters an open parentheses then pop
                 stack.pop();
             }
         }
         else { 																//if the current infix[i] is operator
-            if (stack.empty()) {												//checks if stack is empty then push the current infix[i]
+            if (infix[i] == '-' && isdigit(infix[i + 1])) {
+                postfix += infix[i];
+                continue;
+            }
+            if (stack.empty()) {											//checks if stack is empty then push the current infix[i]
                 stack.push(infix[i]);
             }
             else {															//checks the precedence and of the top of the stack and the current infix[i]
@@ -156,6 +161,10 @@ string evaluateIntPostfix(stack <float> mystack, string postfix){
 			int b=atoi(num.c_str()); 
         	mystack.push(b);
             num.erase();
+            continue;
+        }
+        else if (postfix[i] == '-' && isdigit(postfix[i + 1])) {
+            num += postfix[i];
             continue;
         }
         else {
@@ -214,6 +223,10 @@ string evaluateFloatPostfix(stack <float> mystack, string postfix){
 			float a=atof(num.c_str()); 
     		mystack.push(a);
             num.erase();
+            continue;
+        }
+        else if (postfix[i] == '-' && isdigit(postfix[i + 1])) {
+            num += postfix[i];
             continue;
         }
         else if (postfix[i] == '%') {

@@ -47,14 +47,18 @@ void Storage::ASSIGN(string command) {
 	// Perform expression evaluation similar to in syntax checking, break down expression part by part
 	for (int i = 0; i < command.length(); i++) {
 		if (isOperator(command[i])) {	// Current operator is an operator
+			if (command[i] == '-' && temp.length() == 0) {
+				temp += command[i];
+				continue;
+			}
 			if (isVar(temp)) {	// Is part in variable syntax
-				if(doesVarExist(temp)) expr += variables.at(temp) + command[i];	// Add variable value and operator to the string
+				if(doesVarExist(temp)) expr += " " + variables.at(temp) + " " + command[i] + " ";	// Add variable value and operator to the string
 				else {
 					cout << "SNOL> Error! [" << temp << "] is not defined!" << endl;
 					return;
 				}
 			}
-			else expr += temp + command[i];
+			else expr += " " + temp + " " + command[i] + " ";
 			temp.erase();
 		}
 		else if (command[i] == ' ') continue;	// Ignore spaces
@@ -76,7 +80,7 @@ void Storage::ASSIGN(string command) {
 	else expr += temp;
 	temp.erase();
 	command.erase();
-	cout << "EXPR = " << expr << endl; // For checking only removable
+	cout << "EXPR =" << expr << endl; // For checking only removable
 
 	//conditions if the expression is only a digit with no operations
 	if (isDigit(expr)) {
@@ -94,7 +98,7 @@ void Storage::ASSIGN(string command) {
 			return;
 		}
 		else {
-			//cout << "Postfix Expression: " << postfix << endl;
+			cout << "Postfix Expression: " << postfix << endl;
 
 			if (checkType(postfix)) {
 				stack <float> i;

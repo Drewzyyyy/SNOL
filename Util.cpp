@@ -104,7 +104,7 @@ bool check_syntax(string command, int type) {
 				temp += command[i];
 			}
 			else if (isOperator(command[i])) {	// Serves as flag to check the temp
-				if (command[i] == '-' && isdigit(command[i + 1])) {
+				if (command[i] == '-' && temp.length() == 0) {
 					temp += command[i];
 					continue;
 				}
@@ -174,7 +174,7 @@ bool check_syntax(string command, int type) {
 				temp.erase();	
 			}
 			else if (isOperator(command[i])) {	// Flag to check part of the expression for syntax
-				if (command[i] == '-' && isdigit(command[i + 1])) {
+				if (command[i] == '-' && temp.length() == 0) {
 					temp += command[i];
 					continue;
 				}
