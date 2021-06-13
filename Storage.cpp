@@ -78,39 +78,44 @@ void Storage::ASSIGN(string command) {
 	command.erase();
 	cout << "EXPR = " << expr << endl; // For checking only removable
 
-	//test code for the infix to postfix conversion
-	stack <char> s;
-	string postfix = infixToPostfix(s, expr);
-	string ans = "";
-	
-	//checks if all numbers have the same data type
-	if(!checkError(postfix)){
-		cout<<"Error!"<<endl;
-		return; 
+	//conditions if the expression is only a digit with no operations
+	if (isDigit(expr)) {
+		variables[var] = expr;
 	}
-	else{
-		cout << "Postfix Expression: " << postfix << endl;
+	else {
+		// for the infix to postfix conversion
+		stack <char> s;
+		string postfix = infixToPostfix(s, expr);
+		string ans = "";
 
-		if(checkType(postfix)) {
-			stack <float> i;	
-			ans = evaluateIntPostfix(i, postfix);
-			if(ans=="ERROR"){
-				cout<<"Error!"<<endl;
-				return;
-			}
+		//checks if all numbers have the same data type
+		if (!checkError(postfix)) {
+			cout << "Error!" << endl;
+			return;
 		}
-		else{
-			stack <float> f;
-			ans = evaluateFloatPostfix(f, postfix);
-			if (ans == "ERROR") {
-				cout << "Error!" << endl;
-				return;
+		else {
+			//cout << "Postfix Expression: " << postfix << endl;
+
+			if (checkType(postfix)) {
+				stack <float> i;
+				ans = evaluateIntPostfix(i, postfix);
+				if (ans == "ERROR") {
+					cout << "Error!" << endl;
+					return;
+				}
 			}
-			cout << "Answer: " << ans <<endl;
+			else {
+				stack <float> f;
+				ans = evaluateFloatPostfix(f, postfix);
+				if (ans == "ERROR") {
+					cout << "Error!" << endl;
+					return;
+				}
+				cout << "Answer: " << ans << endl;
+			}
+			variables[var] = ans;
 		}
-		variables[var] = ans;
 	}
-	
 }
 
 bool Storage::VAR_CHECK(string command) {
