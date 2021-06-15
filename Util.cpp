@@ -120,13 +120,7 @@ bool check_syntax(string command, int type) {
 				}
 				temp.erase();
 			}
-			else if (command[i] == ' ') {
-				if (isOperator(command[i + 1]) || command[i + 1] == ' ') continue;
-				else if (isdigit(command[i + 1])) {
-					cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
-					return false;
-				}
-			}	// Ignores spaces
+			else if (command[i] == ' ') continue;	// Ignores spaces
 			else temp += command[i];	// Add the next character to the part to be checked
 		}
 
@@ -196,13 +190,7 @@ bool check_syntax(string command, int type) {
 				}
 				temp.erase();
 			}
-			else if (command[i] == ' ') {
-				if (isOperator(command[i + 1]) || command[i + 1] == ' ') continue;
-				else if (isdigit(command[i + 1])) {
-					cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
-					return false;
-				}
-			}	// Ignores spaces
+			else if (command[i] == ' ') continue;	// Ignores spaces
 			else temp += command[i];
 		}
 
@@ -283,3 +271,6 @@ void checkCalc(string expr) {
 		return;
 	}
 }
+
+
+
