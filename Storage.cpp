@@ -47,7 +47,7 @@ void Storage::ASSIGN(string command) {
 	// Perform expression evaluation similar to in syntax checking, break down expression part by part
 	for (int i = 0; i < command.length(); i++) {
 		if (isOperator(command[i])) {	// Current operator is an operator
-			if (command[i] == '-' && temp.length() == 0) {
+			if (command[i] == '-' && isdigit(command[i+1])) {
 				temp += command[i];
 				continue;
 			}
@@ -145,7 +145,7 @@ bool Storage::VAR_CHECK(string command) {
 			else var.erase();
 		}
 		else if (command[i] == ' ') {// Ignore spaces
-			if ((command[i + 1] == '-') && (isdigit(command[i + 2]))) {
+			if ((command[i + 1] == '-') && !(isdigit(command[i + 2]))) {
 				cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 				return false;
 			}

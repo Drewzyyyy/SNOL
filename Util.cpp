@@ -104,17 +104,15 @@ bool check_syntax(string command, int type) {
 				temp += command[i];
 			}
 			else if (isOperator(command[i])) {	// Serves as flag to check the temp
-				if (command[i] == '-' && temp.length() == 0) {
+				if (command[i] == '-' && isdigit(command[i+1])) {
 					temp += command[i];
 					continue;
 				}
 				if (temp.size() == 0) {	// No valid characters for part
-					// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 					cout << "SNOL> Unknown command! Does not match any valid command of the language. " << endl;
 					return false;
 				}
 				if (!(regex_match(temp, var) || regex_match(temp, digit))) { 	// Not in variable or digit syntax
-					// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 					cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 					return false;
 				}
@@ -125,19 +123,16 @@ bool check_syntax(string command, int type) {
 		}
 
 		if (parenthesis != 0) {
-			// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 			cout << "SNOL> There is a ')' in the expression without an '('!" << endl;
 			return false;
 		}
 
 		// Same as above, but for the last part before end of string
 		if (temp.size() == 0) {	// No valid characters for part
-			// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 			cout << command << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 			return false;
 		}
 		if (!(regex_match(temp, var) || regex_match(temp, digit))) { 	// Not in variable or digit syntax
-			// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 			cout << command << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 			return false;
 		}
@@ -255,7 +250,7 @@ void checkCalc(string expr) {
 		return;
 	}
 	else {
-		//cout << "Postfix Expression: " << postfix << endl;
+		cout << "Postfix Expression: " << postfix << endl;
 		if (checkType(postfix)) {
 			stack <float> i;
 			string ans = evaluateIntPostfix(i, postfix);
