@@ -53,8 +53,8 @@ using namespace std;
 */
 
 int analyze_command(string command) {
-	regex beg("BEG [^ ]+");	// "BEG (any characters)" to be a BEG command
-	regex disp("PRINT [^ ]+");	// "PRINT (any characters)" to be a PRINT command
+	regex beg("BEG [^\\|]+");	// "BEG (any characters)" to be a BEG command
+	regex disp("PRINT [^\\|]+");	// "PRINT (any characters)" to be a PRINT command
 	if (regex_match(command, beg)) return 1;
 	else if (regex_match(command, disp)) return 2;
 	else if (command == "EXIT!") return 3;
@@ -251,7 +251,7 @@ void checkCalc(string expr) {
 		return;
 	}
 	else {
-		cout << "Postfix Expression: " << postfix << endl;
+		//cout << "Postfix Expression: " << postfix << endl;
 		if (checkType(postfix)) {
 			stack <float> i;
 			string ans = evaluateIntPostfix(i, postfix);
