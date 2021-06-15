@@ -191,6 +191,7 @@ bool check_syntax(string command, int type) {
 				temp.erase();
 			}
 			else if (command[i] == ' ') {
+				if (command[i + 1] == '=') continue;
 				if (equals == 0) temp += command[i];
 				continue;
 			}	// Ignores spaces
