@@ -52,13 +52,13 @@ void Storage::ASSIGN(string command) {
 				continue;
 			}
 			if (isVar(temp)) {	// Is part in variable syntax
-				if(doesVarExist(temp)) expr += " " + variables.at(temp) + " " + command[i] + " ";	// Add variable value and operator to the string
+				if(doesVarExist(temp)) expr += " " + variables.at(temp) + " " + command[i];	// Add variable value and operator to the string
 				else {
 					cout << "SNOL> Error! [" << temp << "] is not defined!" << endl;
 					return;
 				}
 			}
-			else expr += " " + temp + " " + command[i] + " ";
+			else expr += " " + temp + " " + command[i];
 			temp.erase();
 		}
 		else if (command[i] == ' ') continue;	// Ignore spaces
@@ -98,13 +98,13 @@ void Storage::ASSIGN(string command) {
 			return;
 		}
 		else {
-			cout << "Postfix Expression: " << postfix << endl;
+			//cout << "Postfix Expression: " << postfix << endl;
 
 			if (checkType(postfix)) {
 				stack <float> i;
 				ans = evaluateIntPostfix(i, postfix);
 				if (ans == "ERROR") {
-					cout << "Error!" << endl;
+					cout << "SNOL> Error! Operands must be in int type to perform Modulo!";
 					return;
 				}
 			}
@@ -112,10 +112,10 @@ void Storage::ASSIGN(string command) {
 				stack <float> f;
 				ans = evaluateFloatPostfix(f, postfix);
 				if (ans == "ERROR") {
-					cout << "Error!" << endl;
+					cout << "SNOL> Error! Operands must be in int type to perform Modulo!";
 					return;
 				}
-				cout << "Answer: " << ans << endl;
+				//cout << "Answer: " << ans << endl;
 			}
 			variables[var] = ans;
 		}
@@ -126,13 +126,38 @@ bool Storage::VAR_CHECK(string command) {
 	string var;
 	for (int i = 0; i < command.length(); i++) {
 		if (isOperator(command[i])) {
-			if(isVar(var) && !doesVarExist(var)){
-				cout << "ERROR!" << endl;
+			if (isVar(var) && !doesVarExist(var)) {
+				cout << "SNOL> Error! [" << var << "] is not defined!" << endl;
 				return false;
 			}
 			else var.erase();
 		}
+		else if (command[i] == ' ') continue;
 		var += command[i];
+	}
+	if (isVar(var) && !doesVarExist(var)) {
+		cout << "SNOL> Error! [" << var << "] is not defined!" << endl;
+		return false;
 	}
 	return true;
 }
+
+string Storage::GET_VAL(string command) {
+	string temp, result;
+	for (int i = 0; i < command.length(); i++) {
+		if (isOperator(command[i])) {
+			if (isVar(temp)) result += " " + variables.at(temp) + " " + command[i];
+			else result += " " + temp + " " + command[i];
+			temp.erase();
+			continue;
+		}
+		else if (command[i] == ' ') continue;
+		temp += command[i];
+	}
+	if (isVar(temp)) result += " " + variables.at(temp) ;
+	else result += " " + temp;
+	temp.erase();
+	return result;
+}
+
+

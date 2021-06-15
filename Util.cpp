@@ -247,7 +247,7 @@ void checkCalc(string expr) {
 
 	//checks if all numbers have the same data type
 	if (checkError(postfix) == false) {
-		cout << "Error!" << endl;
+		cout << "SNOL> Error! Operands must be of the same type in an arithmetic operation!" << endl;
 		return;
 	}
 	else {
@@ -256,7 +256,7 @@ void checkCalc(string expr) {
 			stack <float> i;
 			string ans = evaluateIntPostfix(i, postfix);
 			if (ans == "ERROR") {
-				cout << "Error!" << endl;
+				cout << "SNOL> Error! Operands must be in int type to perform Modulo!";
 				return;
 			}
 		}
@@ -264,7 +264,7 @@ void checkCalc(string expr) {
 			stack <float> f;
 			string ans = evaluateFloatPostfix(f, postfix);
 			if (ans == "ERROR") {
-				cout << "Error!" << endl;
+				cout << "SNOL> Error! Operands must be in int type to perform Modulo!";
 				return;
 			}
 		}

@@ -73,8 +73,6 @@ bool checkType(string postfix){
     // Returns true if Integer, then false if float
 }
 
-
-
 string infixToPostfix(stack <char> stack, string infix) {
     string postfix;
 

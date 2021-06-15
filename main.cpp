@@ -34,10 +34,7 @@ int main() {
 		type = analyze_command(command);	// Checks and returns the command type of the command
 		switch (type) {
 			case 0:
-				/*
-					analyze_command did not understand the command
-					ERROR CHECKING HERE PLEASE
-				*/
+				cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 				break;
 			case 1:
 				// BEG Command
@@ -52,13 +49,11 @@ int main() {
 				return 0;
 				break;
 			case 4:
-				/* 
-				Already done syntax checking for this part, check if calculation will be possible
-				else display error message
-				if (check_syntax(command, type)) DO STUFF HERE;
-				*/
-				if (!check_syntax(command, type)) cout << "ERROR" << endl;
-				else if(store.VAR_CHECK(command)) checkCalc(command);
+				if (!check_syntax(command, type)) break;
+				else if (store.VAR_CHECK(command)) {
+					command = store.GET_VAL(command);
+					checkCalc(command);
+				}
 				break;
 			case 5:
 				// Assignment

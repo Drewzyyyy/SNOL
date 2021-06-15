@@ -29,5 +29,6 @@ class Storage
 		void PRINT(string command);
 		void ASSIGN(string command);
 		bool VAR_CHECK(string command);
+		string GET_VAL(string command);
 };
 
