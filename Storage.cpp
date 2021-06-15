@@ -71,16 +71,16 @@ void Storage::ASSIGN(string command) {
 
 	// Same as above, but for the last part before end of string
 	if (isVar(temp)) {
-		if (doesVarExist(temp)) expr += variables.at(temp);	// Add variable value and operator to the string
+		if (doesVarExist(temp)) expr += " " + variables.at(temp);	// Add variable value and operator to the string
 		else {
 			cout << "SNOL> Error! [" << temp << "] is not defined!" << endl;
 			return;
 		}
 	}
-	else expr += temp;
+	else expr += " " + temp;
 	temp.erase();
 	command.erase();
-	cout << "EXPR =" << expr << endl; // For checking only removable
+	//cout << "EXPR =" << expr << endl; // For checking only removable
 
 	//conditions if the expression is only a digit with no operations
 	if (isDigit(expr)) {
