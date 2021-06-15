@@ -120,7 +120,13 @@ bool check_syntax(string command, int type) {
 				}
 				temp.erase();
 			}
-			else if (command[i] == ' ') continue;	// Ignores spaces
+			else if (command[i] == ' ') {
+				if (isOperator(command[i + 1]) || command[i + 1] == ' ') continue;
+				else if (isdigit(command[i + 1])) {
+					cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
+					return false;
+				}
+			}	// Ignores spaces
 			else temp += command[i];	// Add the next character to the part to be checked
 		}
 
@@ -190,7 +196,13 @@ bool check_syntax(string command, int type) {
 				}
 				temp.erase();
 			}
-			else if (command[i] == ' ') continue;	// Ignores spaces
+			else if (command[i] == ' ') {
+				if (isOperator(command[i + 1]) || command[i + 1] == ' ') continue;
+				else if (isdigit(command[i + 1])) {
+					cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
+					return false;
+				}
+			}	// Ignores spaces
 			else temp += command[i];
 		}
 
@@ -230,13 +242,13 @@ bool isOperator(char c) {	// Check if current character is a mathematical operat
 }
 
 bool isVar(string c) {	// Check if the string is in variable name syntax
-	regex var("\\(*-?[A-Za-z][A-Za-z0-9]*\\)*");	// letter{letter|digit} -> in IBNF
+	regex var(" *\\(*-?[A-Za-z][A-Za-z0-9]*\\)*");	// letter{letter|digit} -> in IBNF
 	if (regex_match(c, var)) return true;
 	else return false;
 }
 
 bool isDigit(string c) {	// Check if string is in digit syntax
-	regex digit("\\(*-?[0-9][0-9]*(\\.[0-9]+)?\\)*");	// [-]digit{digit}[.{digit}] -> in IBNF
+	regex digit(" *\\(*-?[0-9][0-9]*(\\.[0-9]+)?\\)*");	// [-]digit{digit}[.{digit}] -> in IBNF
 	if (regex_match(c, digit)) return true;
 	else return false;
 }

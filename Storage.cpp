@@ -80,7 +80,7 @@ void Storage::ASSIGN(string command) {
 	else expr += " " + temp;
 	temp.erase();
 	command.erase();
-	//cout << "EXPR =" << expr << endl; // For checking only removable
+	cout << "EXPR =" << expr << endl; // For checking only removable
 
 	//conditions if the expression is only a digit with no operations
 	if (isDigit(expr)) {
