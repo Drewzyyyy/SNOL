@@ -110,7 +110,7 @@ bool check_syntax(string command, int type) {
 				}
 				if (temp.size() == 0) {	// No valid characters for part
 					// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
-					cout << command << "SNOL> Unknown command! Does not match any valid command of the language. " << endl;
+					cout << "SNOL> Unknown command! Does not match any valid command of the language. " << endl;
 					return false;
 				}
 				if (!(regex_match(temp, var) || regex_match(temp, digit))) { 	// Not in variable or digit syntax
@@ -190,7 +190,10 @@ bool check_syntax(string command, int type) {
 				}
 				temp.erase();
 			}
-			else if (command[i] == ' ') continue;	// Ignores spaces
+			else if (command[i] == ' ') {
+				if (equals == 0) temp += command[i];
+				continue;
+			}	// Ignores spaces
 			else temp += command[i];
 		}
 
@@ -271,6 +274,5 @@ void checkCalc(string expr) {
 		return;
 	}
 }
-
 
 
