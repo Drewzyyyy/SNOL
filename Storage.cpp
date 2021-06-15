@@ -61,7 +61,19 @@ void Storage::ASSIGN(string command) {
 			else expr += " " + temp + " " + command[i];
 			temp.erase();
 		}
-		else if (command[i] == ' ') continue;	// Ignore spaces
+		//new changes
+		else if (command[i] == ' ') {// Ignore spaces
+			if ((command[i + 1] == '-') && (isdigit(command[i + 2]))) {
+				cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
+				return;
+			}
+			else if ((isdigit(command[i - 1])) && (isdigit(command[i + 1]))) {
+				cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
+				return;
+			}
+			else continue;
+		}	
+		//----------
 		else if (command[i] == '=') {
 			var += temp;	// Get variable name
 			temp.erase();
@@ -132,7 +144,17 @@ bool Storage::VAR_CHECK(string command) {
 			}
 			else var.erase();
 		}
-		else if (command[i] == ' ') continue;
+		else if (command[i] == ' ') {// Ignore spaces
+			if ((command[i + 1] == '-') && (isdigit(command[i + 2]))) {
+				cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
+				return false;
+			}
+			else if ((isdigit(command[i - 1])) && (isdigit(command[i + 1]))) {
+				cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
+				return false;
+			}
+			else continue;
+		}
 		var += command[i];
 	}
 	if (isVar(var) && !doesVarExist(var)) {
