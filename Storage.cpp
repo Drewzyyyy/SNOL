@@ -44,6 +44,7 @@ void Storage::PRINT(string command) {
 
 void Storage::ASSIGN(string command) {
 	string temp, expr, var;
+	bool flagOp = false;
 	// Perform expression evaluation similar to in syntax checking, break down expression part by part
 	for (int i = 0; i < command.length(); i++) {
 		if (isOperator(command[i])) {	// Current operator is an operator
@@ -52,18 +53,24 @@ void Storage::ASSIGN(string command) {
 				continue;
 			}
 			if (isVar(temp)) {	// Is part in variable syntax
-				if(doesVarExist(temp)) expr += " " + variables.at(temp) + " " + command[i];	// Add variable value and operator to the string
+				if (doesVarExist(temp)) {
+					expr += " " + variables.at(temp) + " " + command[i];	// Add variable value and operator to the string
+					flagOp = true;
+				} 
 				else {
 					cout << "SNOL> Error! [" << temp << "] is not defined!" << endl;
 					return;
 				}
 			}
-			else expr += " " + temp + " " + command[i];
+			else {
+				expr += " " + temp + " " + command[i];
+				flagOp = true;
+			}
 			temp.erase();
 		}
 		//new changes
 		else if (command[i] == ' ') {// Ignore spaces
-			if ((command[i + 1] == '-') && (isdigit(command[i + 2]))) {
+			if ((command[i + 1] == '-') && (isdigit(command[i + 2])) && (flagOp == false)) {
 				cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 				return;
 			}
