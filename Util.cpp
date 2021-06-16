@@ -9,13 +9,6 @@ using namespace std;
 /*
 	Performs utility functions such as syntax checking and command type checking
 
-	Rundown:
-		Line- Name				: Description
-		53	- analyze_command	: Checks what command type the user wants to do, and returns its corresponding calling value
-		66	- check_syntax		: Checks the syntax of the specific command type, and returns a true if it fits the command syntax
-		159	- isOperator		: Checks if the character is a mathematical operation (other than '=')
-		171	- isVar				: Checks if the string follows the variable name syntax
-
 	Syntax checking guides:
 		BEG			- Must start with "BEG ", then valid variable name syntax
 		PRINT		- Must start with "PRINT ", then valird variable name or digit syntax
@@ -74,7 +67,6 @@ bool check_syntax(string command, int type) {
 		temp = command.erase(0, 4);
 		if (regex_match(temp, var)) return true;
 		else {
-			// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 			cout << "SNOL> [" << temp << "]" << " is an invalid syntax for variable name!" << endl;
 			return false;
 		}
@@ -83,7 +75,6 @@ bool check_syntax(string command, int type) {
 		temp = command.erase(0, 6);
 		if (regex_match(temp, var) || regex_match(temp, digit)) return true;
 		else {
-			// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 			cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 			return false;
 		}
@@ -155,12 +146,10 @@ bool check_syntax(string command, int type) {
 			else if (command[i] == '=') {	// Flag to check assigned variable syntax
 				equals++;
 				if (equals > 1) {	// Error if more than 1 equals sign
-					// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 					cout << "SNOL> Invalid! There are more than one '=' in the expression." << endl;
 					return false;
 				}
 				if (!regex_match(temp, var)) {	// Error if not in variable name syntax
-					// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 					cout << "SNOL> Error! Invalid variable name syntax." << endl;
 					return false;
 				}
@@ -172,12 +161,10 @@ bool check_syntax(string command, int type) {
 					continue;
 				}
 				if (temp.size() == 0 || equals == 0) {	// No part captured, meaning repeating operator error or no equals sign found
-					// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 					cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 					return false;
 				}
 				if (!(regex_match(temp, var) || regex_match(temp, digit))) {	// Not in variable or digit syntax 
-					// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 					cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 					return false;
 				}
@@ -192,7 +179,6 @@ bool check_syntax(string command, int type) {
 		}
 
 		if (parenthesis != 0) {
-			// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 			cout << "SNOL> There is a ')' in the expression without an '('!" << endl;
 			return false;
 		}

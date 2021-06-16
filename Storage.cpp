@@ -9,16 +9,6 @@
 
 using namespace std;
 
-/*
-	Performs variable storage, and manipulation
-	Rundown:
-	Line - Name			: Description
-	20	 - doesVarExist : Checks if the is already assigned
-	25	 - BEG			: Performs BEG command (get variable name and store a value)
-	36	 - PRINT		: Performs PRINT command (get variable name or literal, then display the value)
-	43	 - ASSIGN		: Performs assignment (assign value to variable, check if variable names exist in the hash table, and solve if expression)
-*/
-
 bool Storage::doesVarExist(string command) {
 	if (variables.find(command) == variables.end()) return 0;	// Variable not assigned yet
 	else return 1;
