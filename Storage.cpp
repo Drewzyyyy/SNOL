@@ -69,7 +69,7 @@ void Storage::ASSIGN(string command) {
 			temp.erase();
 		}
 		//new changes
-		else if (command[i] == ' ') {// Ignore spaces
+		else if (command[i] == ' ') {
 			if ((command[i + 1] == '-') && (isdigit(command[i + 2])) && (flagOp == false)) {
 				cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 				return;
@@ -143,6 +143,7 @@ void Storage::ASSIGN(string command) {
 
 bool Storage::VAR_CHECK(string command) {
 	string var;
+	bool flagOp = false;
 	for (int i = 0; i < command.length(); i++) {
 		if (isOperator(command[i])) {
 			if (isVar(var) && !doesVarExist(var)) {
@@ -150,9 +151,10 @@ bool Storage::VAR_CHECK(string command) {
 				return false;
 			}
 			else var.erase();
+			flagOp = true;
 		}
 		else if (command[i] == ' ') {// Ignore spaces
-			if ((command[i + 1] == '-') && !(isdigit(command[i + 2]))) {
+			if ((command[i + 1] == '-') && (isdigit(command[i + 2])) && (flagOp == false)) {
 				cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 				return false;
 			}
@@ -163,6 +165,7 @@ bool Storage::VAR_CHECK(string command) {
 			else continue;
 		}
 		var += command[i];
+		flagOp = true;
 	}
 	if (isVar(var) && !doesVarExist(var)) {
 		cout << "SNOL> Error! [" << var << "] is not defined!" << endl;
@@ -174,6 +177,10 @@ bool Storage::VAR_CHECK(string command) {
 string Storage::GET_VAL(string command) {
 	string temp, result;
 	for (int i = 0; i < command.length(); i++) {
+		if (command[i] == '-' && isdigit(command[i + 1])) {
+			temp += command[i];
+			continue;
+		}
 		if (isOperator(command[i])) {
 			if (isVar(temp)) result += " " + variables.at(temp) + " " + command[i];
 			else result += " " + temp + " " + command[i];

@@ -91,7 +91,6 @@ bool check_syntax(string command, int type) {
 	else if (type == 4) {	// Check Calculation if it fits the expression syntax
 		for (int i = 0; i < command.length(); i++) {
 			if (parenthesis < 0) {
-				// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 				cout << "SNOL> There is an '(' in the expression without a ')'!" << endl;
 				return false;
 			}
@@ -129,11 +128,11 @@ bool check_syntax(string command, int type) {
 
 		// Same as above, but for the last part before end of string
 		if (temp.size() == 0) {	// No valid characters for part
-			cout << command << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
+			cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 			return false;
 		}
 		if (!(regex_match(temp, var) || regex_match(temp, digit))) { 	// Not in variable or digit syntax
-			cout << command << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
+			cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 			return false;
 		}
 		temp.erase();
@@ -142,7 +141,6 @@ bool check_syntax(string command, int type) {
 	else if (type == 5) {	// Check Assignment if it fits the expression syntax
 		for (int i = 0, equals = 0; i < command.size(); i++) {
 			if (parenthesis < 0) {
-				// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 				cout << "SNOL> There is an '(' in the expression without a ')'!" << endl;
 				return false;
 			}
@@ -201,12 +199,10 @@ bool check_syntax(string command, int type) {
 
 		// Same as above, but for the last part before end of string
 		if (temp.size() == 0) {	// No valid characters for part
-			// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 			cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 			return false;
 		}
 		if (!(regex_match(temp, var) || regex_match(temp, digit))) {	// Not in variable or digit syntax
-			// DISPLAY APPROPRIATE ERROR COMMAND PLEASEEEE
 			cout << "SNOL> Unknown command! Does not match any valid command of the language." << endl;
 			return false;
 		}
@@ -250,7 +246,8 @@ void checkCalc(string expr) {
 		return;
 	}
 	else {
-		cout << "Postfix Expression: " << postfix << endl;
+		//cout << "Postfix Expression:" << postfix << endl;
+		//cout << "Original Expression:" << expr << endl;
 		if (checkType(postfix)) {
 			stack <float> i;
 			string ans = evaluateIntPostfix(i, postfix);
@@ -270,5 +267,3 @@ void checkCalc(string expr) {
 		return;
 	}
 }
-
-
