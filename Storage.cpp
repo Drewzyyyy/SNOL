@@ -140,8 +140,9 @@ bool Storage::VAR_CHECK(string command) {
 				cout << "SNOL> Error! [" << var << "] is not defined!" << endl;
 				return false;
 			}
-			else var.erase();
+			var.erase();
 			flagOp = true;
+			continue;
 		}
 		else if (command[i] == ' ') {// Ignore spaces
 			if ((command[i + 1] == '-') && (isdigit(command[i + 2])) && (flagOp == false)) {
